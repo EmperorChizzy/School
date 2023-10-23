@@ -1,52 +1,20 @@
 package org.example.department.entities;
 
+import lombok.*;
+import org.example.department.enums.PayMethod;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-public class Payment {
-    private int paymentID;
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Payment{
+    private User user;
+    private Long paymentId;
     private BigDecimal amount;
+    private String Description;
     private LocalDate paymentDate;
-
-    public Payment(){
-
-    }
-    public Payment(int paymentID, BigDecimal amount, LocalDate paymentDate){
-        this.paymentID = paymentID;
-        this.amount = amount;
-        this.paymentDate = paymentDate;
-    }
-
-    public int getPaymentID() {
-        return paymentID;
-    }
-
-    public void setPaymentID(int paymentID) {
-        this.paymentID = paymentID;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "paymentID=" + paymentID +
-                ", amount=" + amount +
-                ", paymentDate=" + paymentDate +
-                '}';
-    }
+    private PayMethod payMethod;
+    private Boolean isCleared;
 }

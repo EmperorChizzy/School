@@ -1,101 +1,83 @@
 package org.example;
+import org.example.department.enums.Position;
+import org.example.department.serviceImplementation.LibraryServiceImpl;
 
-import org.example.department.entities.Applicant;
-import org.example.department.entities.Classes;
-import org.example.department.entities.Course;
-import org.example.department.entities.Student;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 
 public class Main {
-    private static String randomString() {
-        return null;
-    }
-    private static final Scanner keyboard = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-    private void displayInfo(Student[] studentList)
-    {
-        for (Student student : studentList) {
-            System.out.println("Student Name: " + student.getFirstName()+ " " + student.getLastName());
-            System.out.println("Student ID: " + student.getEnrollmentID());
-
-            if (student.getCourses().size() > 0) {
-                System.out.println("Student's Current Courses:" + student.getCourses());
-            } else {
-                System.out.println("Student's Current Courses: The student isn't enrolled in any courses");
-            }
-
-            System.out.println("------------------------------------------------------");
-        }
-    }
-
-
-
-    public static void main(String[] args) {
-        try {
-            int size;
-            Scanner keyboard = new Scanner(System.in);
-            System.out.println("Please enter the number of students you wish to add to the system");
-            size = keyboard.nextInt();
-            keyboard.nextLine();
-
-            Student[] students = new Student[size];
-            Student student;
-            String firstName = "";
-            String lastName = "";
-
-            for (int i = 0; i < size; i++) {
-                student = new Student();
-                students[i] = student;
-
-                System.out.println("Please enter your first name for Student ");
-                firstName = keyboard.nextLine();
-                student.setFirstName(firstName);
-
-                System.out.println("Please enter your last name");
-                lastName = keyboard.nextLine();
-                student.setLastName(lastName);
-
-
-                student.getEnrollmentID();
-                student.getCourses();
-//                if (i==size - 1){
-//                    student.displayInfo(Student);
-//                }
-            }
-
-        } catch (NegativeArraySizeException e) {
-            System.out.println("You can't use a negative number for size");
-
-        }
-
-        Applicant applicant = new Applicant();
-
-        if (applicant.getAge()<=20){
-            System.out.println("you have been Admitted");
-        }else {
-            System.out.println("We regret to inform you that you are Ineligible");
-        }
-
-
-//        private void EnrollmentID(){
-//            String grade;
-//            boolean checked = false;
 //
-//            while (!checked) {
-//                System.out.println("Enter your school year 1. Junior High, 2. Senior Arts, 3.Senior Science");
-//                grade = keyboard.nextLine();
-//                if (grade.length() == 1 && Integer.parseInt(grade) > 0 && Integer.parseInt(grade) < 4) {
-//                    assert randomString() != null;
-//                    Student.enrollmentID(grade.concat(randomString()));
-//                    checked = true;
-//                } else {
-//                    System.out.println("The input you enter is incorrect please try again");
-//                }
-//            }
-//        }
+//        System.out.println(" ");
+//        System.out.println("******Welcome to Chizzy International College CIC *********");
+//        System.out.println(" ");
+//
+//        System.out.println("The CSV data fetched for students are as follows:");
+//        System.out.println("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ ");
+//
+//        StudentServiceImpl studentService= new StudentServiceImpl();
+//        studentService.readStudentServiceImpl(  "/Users/Emperor Chizzy/IdeaProjects/JAVA CLASS 1/OOP/School Project 2/src/main/java/org/example/department/file/Dataset for seeding Student.csv");
+//        System.out.println(StudentServiceImpl.listOfStudents);
+//        System.out.println(" ");
+//
+//        System.out.println("The CSV data fetched for Teachers are as follows:");
+//        System.out.println("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ ");
+//        TeacherServiceImpl teacherService = new TeacherServiceImpl();
+//        teacherService.readTeacherServiceImpl("/Users/Emperor Chizzy/IdeaProjects/JAVA CLASS 1/OOP/School Project 2/src/main/java/org/example/department/file/teacher-data.csv");
+//        System.out.println(TeacherServiceImpl.listOfTeachers);
+//
+//        /**
+//         *
+//         * Writing back the data into a file and storing in a location
+//         */
+//
+//
+//       StudentServiceImpl studentService1 = new StudentServiceImpl();
+//       studentService1.writeStudentToFile("/Users/Emperor Chizzy/IdeaProjects/JAVA CLASS 1/OOP/School Project 2/src/main/java/org/example/department/file/StudentNew.csv");
+//
+//        TeacherServiceImpl teacherService1 = new TeacherServiceImpl();
+//        teacherService1.writeTeacherToFile("/Users/Emperor Chizzy/IdeaProjects/JAVA CLASS 1/OOP/School Project 2/src/main/java/org/example/department/file/TeacherNew.csv");
+
+
+        LibraryServiceImpl libraryService = new LibraryServiceImpl();
+        libraryService.addBook("Advanced Mathematics",4);
+        libraryService.addBook("World Geography", 2);
+
+        libraryService.stockUpBook("Advanced Mathematics",4);
+        libraryService.stockUpBook("World Geography",4);
+
+        libraryService.makeRequestFirstComeFirstServe("Advanced Mathematics", Position.SENIOR_STUDENT);
+        libraryService.makeRequestFirstComeFirstServe("Advanced Mathematics", Position.TEACHER);
+        libraryService.makeRequestFirstComeFirstServe("Advanced Mathematics", Position.SENIOR_STUDENT);
+        libraryService.makeRequestFirstComeFirstServe("Advanced Mathematics", Position.TEACHER);
+        libraryService.makeRequestFirstComeFirstServe("Advanced Mathematics", Position.JUNIOR_STUDENT);
+        System.out.println("......................................................................................");
+
+        libraryService.fulfillRequestsFirstComeFirstServe();
+        System.out.println("......................................................................................");
+
+        libraryService.displayBookAvailability();
+
+       libraryService.makeRequestWithPriority("Advanced Mathematics", Position.SENIOR_STUDENT);
+       libraryService.makeRequestWithPriority("Advanced Mathematics", Position.JUNIOR_STUDENT);
+        libraryService.makeRequestWithPriority("World Geography", Position.TEACHER);
+        libraryService.makeRequestWithPriority("Advanced Mathematics", Position.TEACHER);
+        libraryService.makeRequestWithPriority("World Geography", Position.JUNIOR_STUDENT);
+       libraryService.makeRequestWithPriority("World Geography", Position.SENIOR_STUDENT);
+        System.out.println("......................................................................................");
+
+        libraryService.fulfillRequestsWithPriority();
+        System.out.println("......................................................................................");
+
+
+        libraryService.displayBookAvailability();
+        System.out.println("......................................................................................");
+
+        libraryService.makeRequestWithPriority("Advanced Mathematics", Position.SENIOR_STUDENT);
+        libraryService.makeRequestWithPriority("Advanced Mathematics", Position.JUNIOR_STUDENT);
+
+
     }
-
-
 }

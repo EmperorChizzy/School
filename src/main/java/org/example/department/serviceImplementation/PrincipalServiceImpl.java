@@ -1,52 +1,59 @@
 package org.example.department.serviceImplementation;
+import org.example.department.entities.*;
+import org.example.department.enums.Conduct;
+import org.example.department.enums.Performance;
+import org.example.department.enums.Position;
+import org.example.department.services.PrincipalServices;
 
-import org.example.department.entities.Staff;
-import org.example.department.entities.Student;
-import org.example.department.entities.Teacher;
-import org.example.department.entities.User;
-import org.example.department.enums.Behaviour;
-import org.example.department.services.PrincipalService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class PrincipalServiceImpl implements PrincipalService {
+public class PrincipalServiceImpl implements PrincipalServices<User> {
+    public static List<User> studentRegister = new ArrayList<>();
+    public static List<User> staffRegister = new ArrayList<>();
+    public static HashMap<Position, List<User>> allStaffs =  new HashMap<>();
     @Override
-    public String admit(Student student){
-        if(student.getAge() < (20)){
-            return student.getFirstName()+ " " + student.getLastName()+ " " + " Admitted";
-
+    public User admit(User applicant){
+        if (applicant.getAge() <= 20 && applicant.getAge() >=8) {
+            studentRegister.add(applicant);
+            return applicant;
         }
-        return "Not Admitted";
-    }
-
-
-    @Override
-    public void employ(Staff staff){
-
+        return null;
     }
     @Override
-    public void expel(Student student){
-        if(student.getBehaviour().equals(Behaviour.WORSE)){
-        System.out.println("You have been Rusticated: ");
-    }
-    }
-    @Override
-    public void suspended(User user){
-        if (user.getBehaviour().equals(Behaviour.BAD)){
-        System.out.println("you have been suspended: ");
-    }
-    }
-    @Override
-    public void promote(Teacher teacher){
-        if(teacher.getBehaviour().equals(Behaviour.EXCELLENT)){//|| ()) LAST DATE OF PROMOTION
-
-            System.out.println("You have earned a promotion");
+    public User expel(StudentRecord studentRecord){
+        if(studentRecord.getBehaviour().equals(Conduct.GROSS_MISCONDUCT)){
+            return studentRegister.remove(studentRegister.indexOf(studentRecord.getStudent()));
         }
-
+        return null;
     }
-    public void award(User user){
-        if(user.getBehaviour().equals(Behaviour.OUTSTANDING)){
-            System.out.println("Congratulations!!!\n" + "Award of Excellence");
+    @Override
+    public User employ(User principal, User staffApplicant){
+        if(principal.getRole().equals(Position.PRINCIPAL)){
+            staffRegister.add(staffApplicant);
+            return staffApplicant;
         }
-
+        return null;
     }
-
+    @Override
+    public User retrench(User staff){
+        if(staff.getPerformance().equals(Performance.POOR)){
+            staffRegister.remove(staff);
+            return staff;
+        }
+        return null;
+    }
+    @Override
+    public void assignsDuties(User staff, Position role){
+        staff.setRole(role);
+    }
+    @Override
+    public List<User> viewAllStudents() {
+        return studentRegister;
+    }
+    @Override
+    public List<User> viewAllStaff() {
+        return staffRegister;
+    }
 }

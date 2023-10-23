@@ -1,89 +1,37 @@
 package org.example.department.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class Staff extends User {
-
-    public static List<Staff> listOfStaff = new ArrayList<>();
-
-    private Long StaffID;
-    private String Level;
-    @lombok.Setter
-    private static final BigDecimal salary = null;
-    public static final BigDecimal Salary_1 = new BigDecimal(500000);
-    public static final BigDecimal Salary_2 = new BigDecimal(400000);
-    public static final BigDecimal Salary_3 = new BigDecimal(300000);
-    public static final BigDecimal Salary_4 = new BigDecimal(200000);
-
-    private String role;
+import java.util.Map;
+@Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Staff extends User{
+    private BigDecimal salary;
+    private Map<Long,String> accountDetails;
     private String specialization;
     private LocalDate employmentDate;
-    private String BVN;
+    private String lastPromotionDate;
+    private String bvn;
 
-    public Staff(){
-
+    @Override
+    public String toString() {
+        return " Teacher { " +
+                " userId: " + getUserId() +
+                " | email: " + getEmail() +
+                " | FirstName: " + getFirstName() +
+                " | lastName: " + getLastName() +
+                " } " + "\n";
     }
 
-    public static List<Staff> getListOfStaff() {
-        return listOfStaff;
-    }
-
-    public static void setListOfStaff(List<Staff> listOfStaff) {
-        Staff.listOfStaff = listOfStaff;
-    }
-
-    public Long getStaffID() {
-        return StaffID;
-    }
-
-    public void setStaffID(Long staffID) {
-        StaffID = staffID;
-    }
-
-    public String getLevel() {
-        return Level;
-    }
-
-    public void setLevel(String level) {
-        Level = level;
-    }
-
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public LocalDate getEmploymentDate() {
-        return employmentDate;
-    }
-
-    public void setEmploymentDate(LocalDate employmentDate) {
-        this.employmentDate = employmentDate;
-    }
-
-    public String getBVN() {
-        return BVN;
-    }
-
-    public void setBVN(String BVN) {
-        this.BVN = BVN;
+    @Override
+    public int compareTo(User o) {
+        return 0;
     }
 }

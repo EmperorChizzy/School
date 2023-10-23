@@ -1,116 +1,44 @@
 package org.example.department.entities;
 
-import org.example.department.enums.Behaviour;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.example.department.enums.Gender;
+import org.example.department.enums.Performance;
+import org.example.department.enums.Position;
 
-import java.util.Objects;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Map;
 
-public abstract class User {
-    private Address address;
+
+@Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+
+public abstract class User implements Comparable<User>{
+    private String userId;
     private String firstName;
     private String lastName;
-    private int age;
-    private String gender;
+    private Integer age;
+    private Gender gender;
     private Long phoneNumber;
-    private Behaviour behaviour;
+    private String email;
+    private Position role;
+    private Performance performance;
 
-    public User(Address address, String firstName, String lastName, int age, String gender, Long phoneNumber, Behaviour behaviour) {
-        this.address = address;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
-        this.behaviour = behaviour;
-    }
 
-    public User(){
-    }
-    public User(String firstName, String lastName, Long phoneNumber){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Behaviour getBehaviour() {
-        return behaviour;
-    }
-
-    public void setBehaviour(Behaviour behaviour) {
-        this.behaviour = behaviour;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(address, user.address) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(gender, user.gender) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(behaviour, user.behaviour);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(address, firstName, lastName, age, gender, phoneNumber,behaviour);
-    }
 
     @Override
     public String toString() {
         return "User{" +
-                "address=" + address +
+                "userId='" + userId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", phoneNumber=" + phoneNumber +'\'' +
-                ",behaviour=" + behaviour +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
